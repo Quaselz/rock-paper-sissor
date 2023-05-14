@@ -435,13 +435,14 @@ possibleChoicesHover.forEach((choice) =>
 
 //loop animation
 let loop = 0,
-	startX = 1;
+	startX = 1,
+	modulo = 4;
 function loopKeyFrame() {
 	const imgObjUser = new Image();
 	const imgObjNpc = new Image();
 	if (loop !== null) {
 		loop++;
-		if (loop % 2) {
+		if (loop % modulo) {
 			imgObjUser.src = heroImageSrcArray1[userImgId];
 			imgObjNpc.src = heroImageSrcArray1[npcImgId];
 		} else {
@@ -456,8 +457,10 @@ function loopKeyFrame() {
 	}
 	if (startX >= 1) {
 		userStartMoving = false;
+		modulo = 4;
 	} else {
 		userStartMoving = true;
+		modulo = 2;
 	}
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawPaper(imgObjUser, 5, startX);
