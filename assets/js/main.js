@@ -462,13 +462,14 @@ function loopKeyFrame() {
 		userStartMoving = true;
 		modulo = 2;
 	}
+
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	drawPaper(imgObjUser, 5, startX);
 	drawPaper(imgObjNpc, 1.42, 1);
-	setTimeout(() => {
-		requestAnimationFrame(() => loopKeyFrame());
-	}, 250);
 }
+setInterval(() => {
+	requestAnimationFrame(() => loopKeyFrame());
+}, 150);
 
 //draw our arena
 const canvas = document.getElementById("arena");
