@@ -340,7 +340,7 @@ main {
   /* convert numbers to string */
   min-height: 300px;
   width: 100%;
-  background: radial-gradient(closest-side, rgb(252, 223, 122), rgb(252, 223, 122) 74%, rgb(182, 23, 23) 74%, rgb(182, 23, 23) 75%, transparent 77%), radial-gradient(circle at top, rgba(252, 255, 95, 0.801) 0%, transparent 40%, transparent 100%), radial-gradient(closest-side, transparent, transparent 74%, transparent 74%, transparent 75%, #2C3B14 77%);
+  background: radial-gradient(closest-side, rgb(252, 223, 122), rgb(252, 223, 122) 74%, rgb(182, 23, 23) 74%, rgb(182, 23, 23) 75%, transparent 77%), radial-gradient(circle at top, rgba(252, 255, 95, 0.801) 0%, transparent 40%, transparent 100%), radial-gradient(closest-side, transparent, transparent 74%, transparent 74%, transparent 75%, #133311 77%);
   background-blend-mode: normal;
   background-size: 100% 100%, 100% 100%, 100% 100%, cover;
   background-repeat: repeat;
@@ -429,7 +429,7 @@ main {
   min-height: 100%;
   width: 100%;
   position: relative;
-  background: linear-gradient(180deg, transparent 85%, #2C3B14), radial-gradient(circle at bottom, rgba(252, 255, 95, 0.801) 0, rgb(11, 11, 68) 40%, rgb(11, 11, 68) 100%);
+  background: linear-gradient(180deg, transparent 85%, #133311), radial-gradient(circle at bottom, rgba(252, 255, 95, 0.801) 0, rgb(11, 11, 68) 40%, rgb(11, 11, 68) 100%);
 }
 .container-scoreboard .scoreboard {
   display: flex;
