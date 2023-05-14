@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Rock Paper Sissor</title>
+		<link rel="stylesheet" href="./assets/css/main.css" />
+	</head>
+	<body>
+		<main>
+			<section class="container-game remove">
+				<article class="container-scoreboard">
+					<div class="scoreboard box">
+						<div class="display wrapper">
+							<div>
+								<p>
+									Round: <span id="outputRound">01</span>/<span
+										id="outputMaxRound"
+										>00</span
+									>
+								</p>
+								<h3>Score:</h3>
+							</div>
+							<div>
+								<div>
+									<h4>User<span id="user-points">00</span></h4>
+								</div>
+								<button id="reset" class="btn">New Game</button>
+								<div>
+									<h4>Npc<span id="npc-points">00</span></h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<article class="container-arena">
+					<section class="arena-overlay">
+						<article>
+							<div>
+								<h5>Ur choice: <br /><span id="user-choice"></span></h5>
+							</div>
+							<div>
+								<h5>Npc choice: <br /><span id="npc-choice"></span></h5>
+							</div>
+						</article>
+						<div class="result">
+							<h5>
+								<span id="result"> vs</span>
+							</h5>
+						</div>
+					</section>
+					<canvas id="arena" class="arena"> </canvas>
+				</article>
+				<section class="bushes"></section>
+				<article class="selection">
+					<h3>Choose ur Hero:</h3>
+					<section class="character-selection">
+						<div class="box">
+							<div class="img-wrapper wrapper">
+								<img
+									class="choose"
+									id="rock"
+									src="./assets/img/rock.png"
+									alt="Rock"
+								/>
+							</div>
+						</div>
+						<div class="box">
+							<div class="img-wrapper">
+								<img
+									class="choose"
+									id="paper"
+									src="./assets/img/paper.png"
+									alt="Paper"
+								/>
+							</div>
+						</div>
+						<div class="box">
+							<div class="img-wrapper">
+								<img
+									class="choose"
+									id="scissor"
+									src="./assets/img/scissor.png"
+									alt="Scissor"
+								/>
+							</div>
+						</div>
+					</section>
+				</article>
+			</section>
+			<section class="container-curtain">
+				<div class="wrapper-curtain">
+					<div class="curtain-left"></div>
+					<div class="curtain-right"></div>
+				</div>
+				<div id="form">
+					<form>
+						<label for="number"
+							><h1>How many rounds do you want to play?</h1></label
+						>
+						<div class="input-wrapper">
+							<button type="button" class="numInputs" id="inputDown"></button>
+							<input
+								type="number"
+								name="number"
+								id="rounds"
+								min="1"
+								max="99"
+								value="0"
+								required
+							/>
+							<button
+								type="button"
+								class="numInputs plus"
+								id="inputUp"
+							></button>
+						</div>
+						<button type="submit" class="btn play" id="play">lets play</button>
+					</form>
+					<table id="outputHighscore"></table>
+				</div>
+			</section>
+			<dialog>
+				<div>
+					<div id="outputResult">
+						<span style="--i: 1">L</span>
+						<span style="--i: 2">o</span>
+						<span style="--i: 3">a</span>
+						<span style="--i: 4">d</span>
+						<span style="--i: 5">i</span>
+						<span style="--i: 6">n</span>
+						<span style="--i: 7">g</span>
+						<span style="--i: 8">.</span>
+						<span style="--i: 9">.</span>
+						<span style="--i: 10">.</span>
+					</div>
+					<button id="newGame" class="btn">New Game</button>
+				</div>
+			</dialog>
+		</main>
+		<script type="text/javascript" src="./assets/js/main.js"></script>
+	</body>
+</html>

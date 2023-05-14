@@ -1,0 +1,33 @@
+@for $i from 1 through length($fontsSizes) {
+    $fontSize: nth($fontsSizes, -$i);
+    $lineHeight: nth($lineHeights, -$i);
+        @if -$i == -5 {
+            p {
+                font-size: clamp(calc($fontSize/3), 2vw + calc($fontSize/2),$fontSize);
+                line-height: $lineHeight;
+                font-weight: 600;
+                font-family: 'PressStart', Arial, Helvetica, sans-serif;
+            }
+        }
+        @else if -$i == -4 {
+            span {
+                font-size: clamp(calc($fontSize/3), 2vw + calc($fontSize/2),$fontSize);
+                line-height: $lineHeight;
+                font-family: 'PressStart', Arial, Helvetica, sans-serif;
+                font-weight: 600;
+            }
+        }
+        @else { 
+            h#{$i} {
+            font-size: clamp(calc($fontSize/3), 2vw + calc($fontSize/2),$fontSize);
+            line-height: $lineHeight;
+            font-family: 'PressStart', Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            }
+        }
+}
+
+@function curtainColorRed($opacity) {
+    @return rgba(255, 30, 30, 1 / $opacity);
+}
+

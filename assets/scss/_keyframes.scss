@@ -1,0 +1,37 @@
+@keyframes shake { 
+    0%, 100% {} 
+    50% {transform: translate(2px, 0), rotate(2deg);} 
+    60% {transform: translate(5px, 0), rotate(5deg);} 
+    70% {transform: translate(-5px, 0)rotate(-5deg);} 
+    80% {transform: translate(5px, 0)rotate(5deg);} 
+    90% {transform: translate(-5px, 0)rotate(-5deg);} 
+}
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes rotatePseudo {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg) ;
+	}
+	100% {
+		transform:  translate(-50%, -50%) rotate(360deg);
+	}
+}
+@keyframes rotatePseudoAfter {
+	0% {
+		transform: translate(-50%, -50%) rotate(90deg) ;
+	}
+	100% {
+		transform:  translate(-50%, -50%) rotate(450deg);
+	}
+}
+@keyframes flip {
+    0%,80% {
+      transform: rotateY(360deg) 
+    }
+  }

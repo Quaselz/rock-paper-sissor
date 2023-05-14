@@ -1,0 +1,115 @@
+@mixin containerSize($width: "100", $height: "100", $fixedSizes: false, $hasHeight: true) {
+    /* convert numbers to string */
+    $width: #{$width};
+
+    @if $hasHeight == true {
+        $height: #{$height};
+        @if str-index($height, "vh") or str-index($height, '%') or str-index($height, 'px') or str-index($height, 'rem'){
+            @if $fixedSizes == false {
+                min-height: $height;
+                width: $width;
+            } @else {
+                height: $height;
+                width: $width;
+            }
+        } @else {
+            @if $fixedSizes == false {
+            min-height: $height + vh;
+            min-height: $height + svh;
+            width: #{$width + '%'};
+            } @else {
+                height: $height + px;
+                width: #{$width + 'px'};
+            }
+        }
+    } @else {
+        @if str-index($width, "vw") or str-index($width, '%') or str-index($width, 'px') or str-index($width, 'rem') {
+            width: $width;
+        } @else {
+            width: #{$width + 'px'};
+        }
+    }
+}
+
+@mixin containerDisplay($display, $ai: "", $jc: "", $direction: "", $wrap: "", $column: "", $columnSize: "") {
+
+    $columnSize: #{$columnSize};
+
+    @if $display == "flex" {
+        display: $display;
+        @if $ai != "" {
+        align-items: $ai;
+        }
+        @if $jc != "" {
+            justify-content: $jc;
+            }
+       @if $direction != "" {
+        flex-direction: $direction;
+       }
+       @if $wrap != "" {
+        flex-wrap: $wrap;
+       }
+    }
+    @else if $display == "grid" {
+        display: $display;
+        @if $jc != "" {
+            justify-content: $jc;
+            }
+        @if $ai != "" {
+            align-items: $ai;
+            }
+        @if str-index($columnSize, "fr") or str-index($columnSize, "px") or str-index($columnSize, '%') {
+            grid-template-columns: repeat($column, $columnSize);
+        }
+        @else {
+            grid-template-columns: repeat($column, #{$columnSize + 'fr'});
+        }
+    } @else {
+        display: $display;
+    }
+}
+
+@mixin position($pos, $top: "", $left: "", $right: "", $bottom: "", $zIndex: "") {
+    position: $pos;
+    @if $top != "" {
+        top: $top;
+    }
+     @if $left != "" {
+        left: $left;
+    }
+    @if $right != "" {
+        right: $right;
+    }
+    @if $bottom != "" {
+        bottom: $bottom;
+    }
+    @if $zIndex != "" {
+        z-index: $zIndex;
+    }
+}
+
+@mixin fonts($size, $lineHeight: "", $fontFamily: "", $weight: "") {
+    font-size: clamp(calc($fontsSize/3), 2vw + calc($fontsSize/2),$fontSize);
+    @if $fontFamily != "" {
+        font-family: $fontFamily , Arial, Helvetica, sans-serif;
+    }
+    @if $weight != "" {
+        font-weight: $weight;
+    }
+    @if $lineHeight != "" {
+        line-height: $lineHeight;
+    }
+}
+
+@mixin backgroundImage($img, $posi: "", $repeat: "", $size: "") {
+    background-image: url($img);
+    @if $posi != "" {
+        background-position: $posi;
+    }
+    @if $repeat != "" {
+        background-repeat: $repeat;
+    }
+    @if $size != "" {
+        background-size: $size;
+    }
+}

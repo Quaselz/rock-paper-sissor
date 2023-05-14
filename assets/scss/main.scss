@@ -1,0 +1,458 @@
+@import "variable";
+@import "mixin";
+@import "base";
+@import "function";
+@import "keyframes";
+
+main {
+    @include position(relative);
+    background-color: black;
+}
+[class*="container"] {
+    @include containerDisplay(flex, center ,center);
+    @include containerSize(100, 100);
+    overflow: hidden;
+}
+
+.container-curtain {
+    @include position(absolute,0 ,0, $zIndex: 20);
+}
+
+.wrapper-curtain {
+    @include position(absolute,0,0);
+    @include containerSize(100%, 100%);
+    @include containerDisplay(flex, center, center)
+}
+
+[class|=curtain] {
+    @include containerSize(50, 100);
+    background: 
+        radial-gradient(
+                at top,
+                $curtainColorMain1 0,
+                $curtainColorMain1 20%,
+                $secondColor 20%,
+                $curtainColorMain 21%,
+                $curtainColorMain 30%,
+                $secondColor 30%,
+                $curtainColorMain1 31%,
+                $curtainColorMain1 40%,
+                $secondColor 40%,
+                $curtainColorMain 41%,
+                $curtainColorMain 50%,
+                $secondColor 50%,
+                $curtainColorMain1 51%,
+                $curtainColorMain1 60%,
+                $secondColor 60%,
+                $curtainColorMain 61%,
+                $curtainColorMain 70%,
+                $secondColor 70%,
+                transparent 71%,
+                transparent 100%
+            ),
+            linear-gradient(90deg,$curtainColorMain1 1%, $curtainColorMain1 45%, $secondColor 46%,$secondColor 50%, $curtainColorMain 51%, $curtainColorMain 95%, $secondColor 96%,$secondColor 100%);
+
+            background-blend-mode: normal;
+            background-size:  50% 20%, 5% 100%, cover;
+            background-repeat: repeat-x;
+            background-position: 0% 0%;
+}
+
+.remove {
+    display: none;
+    visibility: hidden;
+    opacity: 0;
+}
+
+#form {
+    @include position(relative, $zIndex: 10);
+    @include containerDisplay(flex, center, center, column);
+    @include containerSize(50);
+
+    form {
+        @include containerDisplay(flex, center, center, column);
+        margin-bottom: 10px;
+
+        h1 {
+            margin-bottom: 10px;
+        }
+    }
+    .input-wrapper {
+        @include containerDisplay(flex, center, 
+        center);
+        margin-bottom: 10px;
+
+        button {
+            @include containerSize(50px, 50px, true);
+            @include position(relative);
+            cursor: pointer;
+            border: none;
+            outline: none;
+            align-items: center;
+            justify-content: center;
+
+            &::before, &::after {
+                @include containerDisplay(inline-block);
+                @include position(absolute);
+                content: '';
+                width: 15px;
+                height: 2px;
+                transform: translate(-50%, -50%);
+                background-color: $backgroundColor;
+                transition: transform 0.2s;
+            }
+            &:hover, &:active, &:focus {
+                &::before, &::after {
+                transform: translate(-50%, -50%) scale(1.2);
+                }
+            }
+        }
+        .plus {
+            &:hover, &:active, &:focus {
+                &::after {
+                    transform: translate(-50%, -50%) scale(1.2) rotate(90deg);
+                }
+            }
+            &::after {
+            transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+        input {
+            @include containerSize(150px, 50px, true);
+            text-align: center;
+            background-color: $stoneDarkColor;
+            font-size: 2rem;
+            line-height: 2rem;
+            font-family: "PressStart", Arial, Helvetica, sans-serif;
+            padding: 5px;
+            border: none;
+            outline: none;
+            transition: background-color .4s, color .4s;            -webkit-appearance: none; 
+            -moz-appearance: none;
+            appearance: none;
+            &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+                -webkit-appearance: none; 
+                -moz-appearance: none;
+                appearance: none;
+            }
+        }
+    }
+    table {
+        border-radius: 10px;
+        font-size: 2rem;
+        font-family: "PressStart", Arial, Helvetica, sans-serif;
+        background-color: $stoneDarkColor;
+        tbody {
+            border-radius: 10px;
+        }
+        td {
+            border-radius: 10px;
+            background-color: $stoneColor;
+            //border-bottom: 5px solid black;
+            padding: 4px;
+            line-height: 2rem;
+            text-align: center;
+        }
+    }
+}
+.selection {
+    padding: 1%;
+    background: linear-gradient(0deg, $stoneColor 0%, $stoneColor 1%, $stoneDarkColor 1%, $stoneDarkColor 50%, $stoneColor 50%, $stoneColor 51%, $stoneDarkColor 51%);
+    background-size:  100% 37%, cover;
+    border: 2px solid $stoneColor;
+    background-repeat: repeat-y;
+    h3 {
+        background-color: $stoneColor;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin-bottom: 5px;
+    }
+    .character-selection {
+        .box {
+            @include containerSize(100px, 100px, true);
+            position: relative;
+            z-index: 10;
+            overflow: hidden;
+            border-radius: 20px;
+            background-color: $stoneColor;
+            padding: 10px;
+            margin: 0 20px;
+            &::before, &::after {
+                visibility: hidden;
+                opacity: 0;
+                background: linear-gradient( 
+                    0deg,
+                    transparent,
+                    transparent,
+                    $curtainColorMain,
+                    $curtainColorMain,
+                    $curtainColorMain
+                );
+            }
+            .img-wrapper {
+                @include containerDisplay(flex, center, center);
+                border-radius: 20px;
+                margin: 0 5px;
+                background-color: $heroColor;
+                //box-shadow: 0 0 10px 0 $secondColor;
+                padding: 4%;
+                border-radius: 20px;
+                position: absolute;
+                inset: 3px;
+                z-index: 1;
+                overflow: hidden;
+                img {
+                    @include containerSize(100%, 100%, true);
+                    &:hover {
+                        box-shadow: 0px 0px 0px 0px transparent;
+                        border-radius: 0px;
+                    }
+                }
+            }
+            &:hover, &:focus, &:active {
+                &::after, &::before {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }     
+        }
+    }
+}
+
+
+.character-selection {
+    @include containerDisplay(flex, center, center);
+}
+
+.container-game {
+    @include containerDisplay(grid, stretch, center, $columnSize:1fr, $column:1);
+    justify-items: center;
+    background-color: $stoneDarkColor;
+}
+
+.container-arena {
+    @include position(relative);
+    @include containerSize(100%, 300px);
+    background:  radial-gradient(closest-side, $heroColor, $heroColor 74%,$curtainColorMain1 74%, $curtainColorMain1 75%, transparent 77%),
+    radial-gradient(circle at top, $lightColor 0%,transparent 40%, transparent 100%),
+    radial-gradient(closest-side, transparent, transparent 74%, transparent 74%, transparent 75%, $heroSecondColor 77%);
+    background-blend-mode: normal;
+    background-size:   100% 100%, 100% 100%, 100% 100%, cover;
+    background-repeat: repeat;
+    background-position: 0% 0%;
+    .arena-overlay {
+        @include position(absolute, 0, 0, $zIndex: 30);
+        @include containerSize(100%, 100%);
+        article {
+        @include containerDisplay(flex, flex-start, space-around);
+        filter: invert(1);
+        }
+        h5 {
+            font-size: 1.5rem;
+            text-decoration: underline;
+            color: $secondColor;
+            font-family: "PressStart", Arial, Helvetica, sans-serif;
+            letter-spacing: -0.1rem;
+        }
+        .result {
+            @include position(absolute, 0, 0, $zIndex: 20);
+            @include containerSize(100%, 100%);
+            @include containerDisplay(flex, center, center);
+            text-align: center;
+        }
+    }
+    .arena {
+        @include containerDisplay(flex, center, space-around);
+        @include containerSize(100%, 100%);
+        @include position(relative, $zIndex: 10);
+        div  {
+            @include containerSize(100, 100, true);
+        }
+    }
+}
+.box::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		0deg,
+		transparent,
+		transparent,
+		$lightColor,
+		$lightColor,
+		$lightColor
+	);
+	z-index: 1;
+	transform-origin: bottom right;
+	animation: rotate 6s linear infinite;
+}
+
+.box::after {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		0deg,
+		transparent,
+		transparent,
+		$lightColor,
+		$lightColor,
+		$lightColor
+	);
+	z-index: 0;
+	transform-origin: bottom right;
+	animation: rotate 6s linear infinite;
+	animation-delay: -3s;
+}
+
+
+.container-scoreboard {
+    @include containerSize(100%, 100%);
+    @include position(relative);
+    background:  linear-gradient(180deg, transparent 85%, $heroSecondColor), radial-gradient(circle at bottom, $lightColor 0,$backgroundColor 40%, $backgroundColor 100%);
+
+    .scoreboard {
+            @include containerDisplay(flex, center, center, column);
+            min-width: 400px;
+            max-width: 40%;
+            min-height: 250px;
+            @include position(relative, $zIndex: 10);
+            padding: 3%;
+            color: $mainColor;
+            border-radius: 20px;
+            background-color: transparent;
+            overflow: hidden;
+        .display {
+            box-shadow: 0 0 10px 0 $secondColor;
+            padding: 4%;
+            border-radius: 20px;
+            position: absolute;
+            inset: 4px;
+            z-index: 1;
+            background-color: $boardColor;
+            overflow: hidden;
+            p {
+                font-size: 2rem;
+                border-bottom: 3px dotted white;
+            }
+            h3 {
+                border-bottom: 3px dotted white;
+            }
+            span {
+                @include containerDisplay(inline-block);
+                /* @include containerSize(60px, 35px, true); */
+                padding: 5px;
+                text-align: center;
+                background-color: $boardSecondColor;
+                box-shadow: inset 0px 0px 5px 1px rgb(255, 137, 46), inset 0px 0px 10px 2px rgb(236, 255, 93);
+                border-radius: 10px;
+                border: 2px dotted $stoneColor;
+            }
+                > :nth-of-type(2) {
+                    @include containerDisplay(flex, flex-end, space-between);
+                    @include containerSize(100, 0);
+                    h4 {
+                        text-align: center;
+                        font-family: "PressStart", Arial, Helvetica, sans-serif;
+                    }
+                    span {
+                        @include containerDisplay(flex, center, center);
+                    }
+                }
+
+        }
+    }
+}
+.bushes {
+    @include position(relative);
+    @include containerSize(100%, 2px, true);
+    background-color: transparent;
+    .shake {
+        &:hover {
+            animation: shake .5s 1;
+        };
+        img {
+            &:hover {
+                box-shadow: 0 0 0 0 transparent;
+            }
+        }
+    }
+}
+
+.btn {
+    @include containerSize(250px, 50px, true);
+    background-color: $stoneDarkColor;
+    font-size: 2rem;
+    line-height: 2rem;
+    font-family: "PressStart", Arial, Helvetica, sans-serif;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color .4s, color .4s;
+    &:hover, &:focus, &:active {
+        color: $stoneDarkColor;
+        background-color: $stoneColor;
+        animation: shake .2s 1 .2s;
+        outline-color: $backgroundColor;
+        box-shadow: 0 0 10px $backgroundColor;
+    }
+}
+.rotate {
+    &::before, &::after {
+        animation: rotatePseudo .5s 2;
+    }
+}
+.plus.rotate {
+    &::after{
+        animation: rotatePseudoAfter .5s 2;
+    } 
+    &::before {
+        animation: rotatePseudo .5s 2;
+    }
+}
+
+#reset {
+    @include containerSize(200px, 45px, true);
+    border-radius: 10px;
+}
+
+dialog {
+    @include containerDisplay(flex, center, center);
+    @include position(absolute, 50%, 50%, $zIndex: -1);
+    transform: translate(-50%, -50%);
+    float: left;
+    border-radius: 20px;
+    text-align: center;
+    padding: 30px;
+
+    &::backdrop {
+        position: fixed;
+        inset: 0px;
+        background: rgba(0, 0, 0, 0.7);
+    }
+    > div {
+        @include containerDisplay(flex, center, center, column);
+        @include containerSize(100%, 300px, true);
+    }
+
+    .outputResult {
+        position: relative;
+
+      }
+      span {
+        position: relative;
+        display: inline-block;
+        text-transform: uppercase;
+        animation: flip 2s infinite;
+        animation-delay: calc(.2s * var(--i));
+        //font-family: Arial, Helvetica, sans-serif;
+      }
+}
+
+
