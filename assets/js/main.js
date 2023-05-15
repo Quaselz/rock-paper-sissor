@@ -265,7 +265,7 @@ let number = 0,
 	alpha = 1;
 
 function drawExplosion() {
-	let angle = number * 2,
+	let angle = number * (rounds + 1),
 		radius = scale * Math.sqrt(number),
 		posiX = radius * Math.sin(angle) + canvas.width / 2,
 		posiY = radius * Math.cos(angle) + canvas.height / 2;
