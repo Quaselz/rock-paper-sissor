@@ -94,12 +94,11 @@ possibleChoices.forEach((choice) =>
 		npcChoiceGenerator();
 		getRoundWinner(false);
 		userStartX = 1;
+		npcStartX = 1;
 		requestFightFrame = cancelAnimationFrame(requestFightFrame);
 		if (requestFightFrame === undefined) {
 			requestKeyFrame = cancelAnimationFrame(requestKeyFrame);
 			requestFightFrame = requestAnimationFrame(() => letsFight());
-		} else {
-			npcStartX = 1;
 		}
 
 		//console.log(maxRounds);
