@@ -33,14 +33,17 @@ let userChoice,
 	didURestart = false,
 	restarting,
 	weRestart = false,
-	fightInterval;
+	fightInterval,
+	requestKeyFrame,
+	requestFightFrame,
+	explosionFrame;
 
 //loop animation
 let loop = 0,
 	userStartX = 1,
 	npcStartX = 1,
-	modulo = 4,
-	movespeed = 0.07;
+	modulo = 100,
+	movespeed = 0.015;
 
 //get maxRounds
 playForm.addEventListener("submit", (e) => {
@@ -91,12 +94,12 @@ possibleChoices.forEach((choice) =>
 		npcChoiceGenerator();
 		getRoundWinner(false);
 		userStartX = 1;
-		if (fightInterval) {
-			npcStartX = 1;
+		requestFightFrame = cancelAnimationFrame(requestFightFrame);
+		if (requestFightFrame === undefined) {
+			requestKeyFrame = cancelAnimationFrame(requestKeyFrame);
+			requestFightFrame = requestAnimationFrame(() => letsFight());
 		} else {
-			fightInterval = setInterval(() => {
-				requestAnimationFrame(() => letsFight());
-			}, 150);
+			npcStartX = 1;
 		}
 
 		if (rounds >= maxRounds) {
@@ -185,21 +188,12 @@ function getRoundWinner(addPoints) {
 
 //fight animation
 function letsFight() {
-	//console.log("fight");
-	if (gameInterval) {
-		gameInterval = clearInterval(gameInterval);
-	}
-	if (!fightInterval) {
-		fightInterval = setInterval(() => {
-			requestAnimationFrame(() => letsFight());
-		}, 150);
-	}
-
+	requestKeyFrame = cancelAnimationFrame(requestKeyFrame);
 	const imgObjUser = new Image();
 	const imgObjNpc = new Image();
 	if (loop !== null) {
 		loop++;
-		if (loop % modulo) {
+		if (loop % modulo > modulo / 2) {
 			imgObjUser.src = heroImageSrcArray1[userImgId];
 			imgObjNpc.src = heroImageSrcArray1[npcImgId];
 		} else {
@@ -213,26 +207,30 @@ function letsFight() {
 	if (userStartMoving === true) {
 		userStartX += movespeed;
 	}
-	if (userStartX >= 2 && npcStartX >= 2) {
-		userStartMoving = false;
-		npcStartMoving = false;
-		modulo = 4;
-	} else {
-		userStartMoving = true;
-		npcStartMoving = true;
-		modulo = 2;
-	}
-
 	if (npcStartMoving === true) {
 		npcStartX += movespeed;
 	}
+	if (userStartX >= 2 && npcStartX >= 2) {
+		userStartMoving = false;
+		npcStartMoving = false;
+		modulo = 100;
+	} else {
+		userStartMoving = true;
+		npcStartMoving = true;
+		modulo = 50;
+	}
 
 	if (userStartMoving === false && npcStartMoving === false) {
-		drawExplosion();
+		explosionFrame = requestAnimationFrame(() => drawExplosion());
 		setTimeout(() => {
 			userStartX = 1;
 			npcStartX = 1;
+			ctx.setTransform(1, 0, 0, 1, 0, 0);
+			requestFightFrame = cancelAnimationFrame(requestFightFrame);
+			explosion = cancelAnimationFrame(explosion);
+			requestFightFrame = requestAnimationFrame(() => letsFight());
 		}, 1500);
+		return;
 	} else {
 		number = 0;
 		hue = 0;
@@ -254,6 +252,8 @@ function letsFight() {
 	}
 
 	ctx.setTransform(1, 0, 0, 1, 0, 0);
+	requestFightFrame = cancelAnimationFrame(requestFightFrame);
+	requestFightFrame = requestAnimationFrame(() => letsFight());
 }
 
 let number = 0,
@@ -279,6 +279,8 @@ function drawExplosion() {
 	number++;
 	hue += 3;
 	alpha -= 0.05;
+
+	explosionFrame = requestAnimationFrame(() => drawExplosion());
 }
 
 // write the winner into modal
@@ -541,9 +543,7 @@ possibleChoicesHover.forEach((choice) =>
 				userImgId = children[0].id;
 				userStartX = 0.3;
 				userChoiceDisplay.innerHTML = userImgId;
-				if (fightInterval) {
-					fightInterval = clearInterval(fightInterval);
-				}
+				requestFightFrame = cancelAnimationFrame(requestFightFrame);
 			} else if (e.type === "mouseout") {
 				userImgId = "question";
 				npcImgId = "question";
@@ -552,14 +552,11 @@ possibleChoicesHover.forEach((choice) =>
 				userChoiceDisplay.innerHTML = "";
 				npcChoiceDisplay.innerHTML = "";
 				resultDisplay.innerHTML = "vs";
-				if (!gameInterval) {
-					gameInterval = setInterval(() => {
-						requestAnimationFrame(() => loopKeyFrame());
-					}, 150);
+				requestKeyFrame = cancelAnimationFrame(requestKeyFrame);
+				if (requestKeyFrame === undefined) {
+					requestKeyFrame = requestAnimationFrame(() => loopKeyFrame());
 				}
-				if (fightInterval) {
-					fightInterval = clearInterval(fightInterval);
-				}
+				requestFightFrame = cancelAnimationFrame(requestFightFrame);
 			} else {
 				alert("Something went wrong, please reload");
 				return;
@@ -569,12 +566,15 @@ possibleChoicesHover.forEach((choice) =>
 );
 
 function loopKeyFrame() {
-	//console.log("loop");
+	console.log("loop");
+
+	requestFightFrame = cancelAnimationFrame(requestFightFrame);
+
 	const imgObjUser = new Image();
 	const imgObjNpc = new Image();
 	if (loop !== null) {
 		loop++;
-		if (loop % modulo) {
+		if (loop % modulo > modulo / 2) {
 			imgObjUser.src = heroImageSrcArray1[userImgId];
 			imgObjNpc.src = heroImageSrcArray1[npcImgId];
 		} else {
@@ -589,10 +589,10 @@ function loopKeyFrame() {
 	}
 	if (userStartX >= 1) {
 		userStartMoving = false;
-		modulo = 4;
+		modulo = 100;
 	} else {
 		userStartMoving = true;
-		modulo = 2;
+		modulo = 50;
 	}
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -607,6 +607,7 @@ function loopKeyFrame() {
 	}
 
 	ctx.setTransform(1, 0, 0, 1, 0, 0);
+	requestKeyFrame = requestAnimationFrame(() => loopKeyFrame());
 }
 
 //draw our arena
@@ -627,6 +628,4 @@ function drawPaper(imgObj, x, y) {
 	);
 }
 
-let gameInterval = setInterval(() => {
-	requestAnimationFrame(() => loopKeyFrame());
-}, 150);
+requestKeyFrame = requestAnimationFrame(() => loopKeyFrame());
