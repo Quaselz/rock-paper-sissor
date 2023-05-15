@@ -102,13 +102,17 @@ possibleChoices.forEach((choice) =>
 			npcStartX = 1;
 		}
 
+		//console.log(maxRounds);
 		if (rounds >= maxRounds) {
-			if (weRestart === false) {
+			//console.log(maxRounds);
+			if (weRestart === false || maxRounds == 1) {
 				setTimeout(() => {
+					getRoundWinner(true);
 					dialog.showModal();
 					getGameWinner();
-				}, 5000);
+				}, 2000);
 			}
+			//console.log(maxRounds);
 			weRestart = true;
 			return;
 		}
@@ -227,7 +231,7 @@ function letsFight() {
 			npcStartX = 1;
 			ctx.setTransform(1, 0, 0, 1, 0, 0);
 			requestFightFrame = cancelAnimationFrame(requestFightFrame);
-			explosion = cancelAnimationFrame(explosion);
+			explosionFrame = cancelAnimationFrame(explosionFrame);
 			requestFightFrame = requestAnimationFrame(() => letsFight());
 		}, 1500);
 		return;
@@ -566,7 +570,7 @@ possibleChoicesHover.forEach((choice) =>
 );
 
 function loopKeyFrame() {
-	console.log("loop");
+	//console.log("loop");
 
 	requestFightFrame = cancelAnimationFrame(requestFightFrame);
 
